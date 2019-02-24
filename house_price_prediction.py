@@ -6,9 +6,9 @@ Published: November 10, 2018
 
 Author: Anjani K Shiwakoti
 
-Synopsis: Housing price prediction, based on 'Sale Price' and 'Living Area', 
+Synopsis: Housing price prediction, based on 'Sale Price' and 'Living Area', using advanced regression technique
 
-Data Source: Kaggle dataset 
+Data Source: Kaggle House Prices dataset (https://www.kaggle.com/c/house-prices-advanced-regression-techniques/data)
 """
 
 ### This cell imports the necessary modules and sets a few plotting parameters for display
@@ -20,8 +20,8 @@ import matplotlib.pyplot as plt
 plt.rcParams['figure.figsize'] = (20.0, 10.0)
 
 ### Read in the data
-tr_path = 'datasets/train.csv'
-test_path = 'datasets/test.csv'
+tr_path = 'datasets/house-prices/train.csv'
+test_path = 'datasets/house-prices/test.csv'
 data = pd.read_csv(tr_path)
 
 ### Data Exploration
@@ -56,7 +56,6 @@ def read_to_df(file_path):
 ### Build a function called "select_columns"
 ### As inputs, take a DataFrame and a *list* of column names.
 ### Return a DataFrame that only has the columns specified in the list of column names
-### Grading will check type of object, dimensions of object, and column names
 
 def select_columns(data_frame, column_names):
     """Return a subset of a data frame by column names.
@@ -70,8 +69,13 @@ def select_columns(data_frame, column_names):
         selected_columns = ['SalePrice', 'GrLivArea', 'YearBuilt']
         sub_df = subselect_linreg_data(data, selected_columns)
     """
-    data_frame1 = data_frame.loc[:, data_frame.columns.isin(column_names)]
-    # print (type(data_frame1))
+    
+    # dataframe is sliced by loc[rows, columns]
+    # the first parameter gives all rows, that is, rows in location 0 to -1 or [:], 
+    # the second parameter gives only those columns given in the list of column names
+    # print (type(data_frame1)) to ensure output obect type is dataframe
+    
+    data_frame1 = data_frame.loc[:, data_frame.columns.isin(column_names)]  
     
     return data_frame1
 
@@ -120,8 +124,6 @@ data_frame.index[5]
 ### Tuples in format (column_name, min_value, max_value)
 ### Return a DataFrame which excludes rows where the value in specified column exceeds "max_value"
 ### or is less than "min_value"
-### DO NOT remove rows if the column value is equal to the min/max value
-
 
 def column_cutoff(data_frame, cutoffs):
     """Subset data frame by cutting off limits on column values.
@@ -134,40 +136,36 @@ def column_cutoff(data_frame, cutoffs):
     Example:
         data_frame = read_into_data_frame('train.csv')
         # Remove data points with SalePrice < $50,000
-        # Remove data points with GrLiveAre > 4,000 square feet
+        # Remove data points with GrLiveArea > 4,000 square feet
         cutoffs = [('SalePrice', 50000, 1e10), ('GrLivArea', 0, 4000)]
         selected_data = column_cutoff(data_frame, cutoffs)
     """
-    #cols = [x[0] for x in cutoffs ]
-    #print (out)
-    #df_cols = data_frame.loc[:, data_frame.columns.isin(out)]    
-    #print (df_cols)
-    
-    #z = df_cols[df_cols.(df_cols.iloc[:, 0])==3]
-    
-    #z = df_cols[df_cols.Quantity == 3]
-    
+    ### you do not want to change original dataframe
     df_new = data_frame.copy(deep=False)
     
+    ### take the first element of first tuple from the list 
+    ### and assign it to column name, and then to min, max respectively
+    ### iterate over each tuple on the list
+    
     for x in cutoffs:
-        column_name = str(x[0])   # take the first element of tuple and assign it as column name
+        column_name = str(x[0])  
         min_val = float(x[1])
         max_val = float(x[2])
-        df_row = df_new[(df_new[column_name] <= min_val) & (df_new[column_name] >= max_val)] 
-        #print (df_row.index.values)
         
-        df_new = df_new.drop(df_row.index[:])
+        # select column by name and compare all its elements to see if anything is below min_val or above max_val,
+        # if so save them in a separate dataframe as you'll need access to its row indices next
+        df_rows_to_delete = df_new[(df_new[column_name] < min_val) | (df_new[column_name] > max_val)] 
         
-        #print (df_new.index.values)
-    
+        # selecting indices of df_rows_to_delete, drop all rows with the matching indices from df_new 
+        # if more than one data point exist, delete all rows starting from zero to end [:] 
+        df_new = df_new.drop(df_rows_to_delete.index[:])  
+        
     return (df_new)
     
 
 tuple_list = [("CostPrice", '.10', '999'), ("SellPrice", '.10', '999')]
 
-selected_data = column_cutoff(data_frame, tuple_list)
-selected_data
-              
+selected_data = column_cutoff(data_frame, tuple_list)            
 
 
 ### Build a function  called "least_squares_weights"
@@ -236,14 +234,14 @@ weights = least_squares_weights(training_x, training_y)
 print (weights)
 
 
-df = read_to_df("sample.csv")
-df_sub = select_columns(df, ['CostPrice', 'SellPrice'])
+df = read_to_df(tr_path)
+df_sub = select_columns(df, ['SalePrice', 'GrLivArea', 'YearBuilt'])
 
-cutoffs = [('CostPrice', 50000, 1e10), ('SellPrice', 0, 4000)]
+cutoffs = [('SalePrice', 50000, 1e10), ('GrLivArea', 0, 4000)]
 df_sub_cutoff = column_cutoff(df_sub, cutoffs)
 
-X = selected_data['CostPrice'].values
-Y = selected_data['SellPrice'].values
+X = df_sub_cutoff['GrLivArea'].values
+Y = df_sub_cutoff['SalePrice'].values
 
 ### reshaping for input into function
 training_y = np.array([Y])
@@ -251,21 +249,6 @@ training_x = np.array([X])
 
 weights = least_squares_weights(training_x, training_y)
 print(weights)
-
-
-from sklearn.linear_model import LinearRegression
-
-lr = LinearRegression()
-
-### sklearn requires a 2-dimensional X and 1 dimensional y. The below yeilds shapes of:
-### skl_X = (n,1); skl_Y = (n,)
-skl_X = selected_data[['CostPrice']]
-skl_Y = selected_data['SellPrice']
-
-lr.fit(skl_X,skl_Y)
-print("Intercept:", lr.intercept_)
-print("Coefficient:", lr.coef_)
-
 
 max_X = np.max(X) ### + 100
 min_X = np.min(X) ### - 100
@@ -288,14 +271,6 @@ plt.show()
 """
 RMSE - ROOT MEAN SQUARED ERROR
 
-df = read_to_df("sample.csv")
-df_sub = select_columns(df, ['CostPrice', 'SellPrice'])
-
-cutoffs = [('CostPrice', 50000, 1e10), ('SellPrice', 0, 4000)]
-df_sub_cutoff = column_cutoff(df_sub, cutoffs)
-
-X = selected_data['CostPrice'].values
-Y = selected_data['SellPrice'].values
 """
 rmse = 0
 
@@ -312,15 +287,6 @@ print(rmse)
 """ 
 R-SQUARED (STATISTIC) OR COEFFICIENT OF DETERMINATION
 
-df = read_to_df("sample.csv")
-df_sub = select_columns(df, ['CostPrice', 'SellPrice'])
-
-cutoffs = [('CostPrice', 50000, 1e10), ('SellPrice', 0, 4000)]
-df_sub_cutoff = column_cutoff(df_sub, cutoffs)
-
-X = selected_data['CostPrice'].values
-Y = selected_data['SellPrice'].values
-
 """
 
 ss_t = 0   # SUM OF SQUARED TOTALS
@@ -333,3 +299,16 @@ for i in range(len(Y)):
 r2 = 1 - (ss_r/ss_t)
 print(r2)
 
+### now compare our model with that of sci-kit learn linear model
+from sklearn.linear_model import LinearRegression
+
+lr = LinearRegression()
+
+### sklearn requires a 2-dimensional X and 1 dimensional y. The below yeilds shapes of:
+### skl_X = (n,1); skl_Y = (n,)
+skl_X = df_sub_cutoff[['GrLivArea']]
+skl_Y = df_sub_cutoff['SalePrice']
+
+lr.fit(skl_X,skl_Y)
+print("Intercept:", lr.intercept_)
+print("Coefficient:", lr.coef_)
