@@ -65,7 +65,7 @@ def get_story_string():
     """
     Returns: a joke in encrypted text.
     """
-    f = open("story.txt", "r")
+    f = open("datasets/story.txt", "r")
     story = str(f.read())
     f.close()
     return story
@@ -280,12 +280,20 @@ class CiphertextMessage(Message):
         
         return 8 #self.shift_message_tuple
 
+
+    # get story string from file
+
+story = get_story_string()
+
 #Example test case (PlaintextMessage)
-plaintext = PlaintextMessage('hello', 2)
-print('Expected Output: jgnnq')
-print('Actual Output:', plaintext.get_message_text_encrypted())
-    
+plaintext = PlaintextMessage(story, 5)
+
+print("--------------------------------------------ENCRYPT MESSAGE----------------------------------------------------------")
+print('Expected Output: \n Tprz Padgtn xh p bniwxrpa rwpgpritg rgtpits dc iwt hejg du p bdbtci id wtae rdktg pc xchjuuxrxtcian eapccts wprz. Rt wph qttc gtvxhitgts udg raphhth pi WSD ilxrt qtudgt, qji wph gtedgitsan ctktg ephhts p raphh. Si wph qttc iwt igpsxixdc du iwt gthxstcih du Ophi Mpbejh id qtrdbt Tprz Padgtn udg p utl cxvwih tprw ntpg id tsjrpit xcrdbxcv hijstcih xc iwt lpnh, btpch, pcs tiwxrh du wprzxcv.')
+print('Actual Output: \n', plaintext.get_message_text_encrypted())
+ 
+print("--------------------------------------------DECRYPT MESSAGE----------------------------------------------------------")   
 #Example test case (CiphertextMessage)
-ciphertext = CiphertextMessage('jgnnq')
-print('Expected Output:', (24, 'hello'))
-print('Actual Output:', ciphertext.decrypt_message())
+ciphertext = CiphertextMessage('Tprz Padgtn xh p bniwxrpa rwpgpritg rgtpits dc iwt hejg du p bdbtci id wtae rdktg pc xchjuuxrxtcian eapccts wprz. Rt wph qttc gtvxhitgts udg raphhth pi WSD ilxrt qtudgt, qji wph gtedgitsan ctktg ephhts p raphh. Si wph qttc iwt igpsxixdc du iwt gthxstcih du Ophi Mpbejh id qtrdbt Tprz Padgtn udg p utl cxvwih tprw ntpg id tsjrpit xcrdbxcv hijstcih xc iwt lpnh, btpch, pcs tiwxrh du wprzxcv.')
+print('Expected Output: \n', ('Tack Plorey is a mythical character created on the spur of a moment to help cover an insufficiently planned hack. Re has been registered for classes at WSD twice before, but has reportedly never passed a class. St has been the tradition of the residents of Oast Mampus to become Tack Plorey for a few nights each year to educate incoming students in the ways, means, and ethics of hacking.'))
+print('Actual Output: \n', ciphertext.decrypt_message())
