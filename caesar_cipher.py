@@ -125,6 +125,7 @@ class Message(object):
         
         self.lower_shift_dict = {self.lower_alphabets[x]:self.lower_alphabets[x+shift-26] for x in range(26)}
         self.upper_shift_dict = {self.upper_alphabets[x]:self.upper_alphabets[x+shift-26] for x in range(26)}
+        
         # merge the two dicts
         self.shift_dict = {**self.lower_shift_dict, **self.upper_shift_dict}
         
@@ -143,16 +144,20 @@ class Message(object):
              down the alphabet by the input shift
         '''
         self.shifted_message = ''
-        self.message = self.get_message_text()
+        self.message_text = self.get_message_text()
         self.shifted_dict = self.build_shift_dict(shift)
         
-        for i, letter in enumerate(self.message) :
-            for key,val in self.shifted_dict.items():
-                if letter == key:
-                    self.shifted_message += val
-        
+        for i, letter in enumerate(self.message_text) :
+            
+            if letter in string.ascii_lowercase and string.ascii_uppercase:
+                for key,val in self.shifted_dict.items():
+                    if letter == key:
+                        self.shifted_message += val
+                    
+            else:
+                self.shifted_message += letter
+            
         return self.shifted_message
-
 
 class PlaintextMessage(Message):
     def __init__(self, text, shift):
@@ -212,7 +217,11 @@ class PlaintextMessage(Message):
 
         Returns: nothing
         '''
-        return (26 - self.shift)
+        self.new_shift = shift
+        self.encrypting_dict = Message.build_shift_dict(self, self.new_shift)
+        self.message_text_encrypted = Message.apply_shift(self, self.new_shift)
+        
+        return None
 
 
 class CiphertextMessage(Message):
