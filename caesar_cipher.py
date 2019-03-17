@@ -1,3 +1,20 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Sat Mar 16 11:40:50 2019
+
+@author: Anjani K Shiwakoti
+
+Synopsis: Caesar Cipher - This application encodes (encrypts) all uppercase and lowercase characters in the English alphabet 
+into something undecipherable (gibberish) and decodes (decrypts) them back to the original message so that the secret message 
+can only be read by the intended recipient. Using a number provided by sender to encode by (shift), it shifts each alphabet by 
+that number, and then shifts it back to the original by guessing the "best" shift with which to decode by. It does not apply any 
+shift to the rest of the special characters and digits. This program utilizes a classic cipher algorithm to demonstrate abstractions 
+in terms of classes and inheritance, but it can be modified to include any and all characters in the ascii character set together 
+with more complex encryption/decryption rules and algorithms adding high level of complexity.
+
+"""
+
+
 import string
 
 ### DO NOT MODIFY THIS FUNCTION ###
@@ -53,7 +70,7 @@ def get_story_string():
     f.close()
     return story
 
-WORDLIST_FILENAME = 'words.txt'
+WORDLIST_FILENAME = 'datasets/words.txt'
 
 class Message(object):
     ### DO NOT MODIFY THIS METHOD ###
