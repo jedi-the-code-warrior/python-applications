@@ -2,10 +2,10 @@
 """
 Created on Thu Mar 14 07:40:57 2019
 
-@author: AnjaniK Shiwakoti
+@author: Anjani K Shiwakoti
 
 Synopsys: 
-    This program gets first N number of Fibonacci numbers and displays them sequentially in a list.
+This program gets first N number of Fibonacci numbers and displays them sequentially in a list.
 It explores multiple ways to solving this problem and see which algorithm is the best solution 
 in terms of time complexity measures (efficiency).
 
