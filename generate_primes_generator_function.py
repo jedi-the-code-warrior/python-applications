@@ -25,11 +25,14 @@ def genPrimes_unbounded():
             primes.append(next_num)
         next_num += 2  ## odds
         
-        
+
+# Let how_many_primes be the number of primes we want to generate
+how_many_primes = 50
+
 # calling the generator Nth times using its next() method
 # for unbounded loop
 primeGenerator = genPrimes_unbounded()
-for num in range(10): 
+for num in range(how_many_primes): 
     print(primeGenerator.__next__())
 
 print ("__________________________________________________________________")
@@ -53,5 +56,5 @@ def genPrimes_bounded(N):
         
 # calling the generator Nth times using for loop  
 # bounded loop    
-for item in genPrimes_bounded(10):
+for item in genPrimes_bounded(how_many_primes):
     print(item)
