@@ -47,6 +47,4 @@ print ("Your total geodesic distance between: ",
        getAddress(starting_address), " and ", 
        getAddress(destination_address), " is: ",
        getDistance(starting_address, destination_address), "miles")
-#print ("Your full address is: ", getCoordinates(starting_address)[0])
-#print ("Your co-ordinates are: ", getCoordinates(starting_address)[1])
 
