@@ -1,0 +1,37 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Sun Mar 31 15:36:15 2019
+
+@author: Anjani K Shiwakoti
+
+Synopsis: Find the current user location based on user's public device IP 
+using GeoIP API ('https://geojs.io/') geolocation JSON data. You may also
+use Googlemaps API or any other service offering geolocation JSON data.
+"""
+
+import requests
+
+# get the server request response 
+ip_request = requests.get('https://get.geojs.io/v1/ip.json')
+
+# STEP 1: Get the IP
+my_ip = ip_request.json()['ip']  # returns the 'value' of the key 'ip'
+# ip_request.json() => {ip: '2X0X:640:X1X0:9cXX:3XXf:XbXc:XdXd:XXXX'}
+
+# prints The IPV6 string
+print(my_ip) 
+
+# STEP 2: Query the IP and look up the associated GeoIP information 
+
+geo_request_url = 'https://get.geojs.io/v1/ip/geo/' + my_ip + '.json'
+geo_request = requests.get(geo_request_url)
+geo_data = geo_request.json() # returns a dict
+
+print(geo_data.get('city'), geo_data.get('country'))
+print([geo_data.get('latitude'),geo_data.get('longitude')])
+
+# ----------------------------------------------------------------------------------------------------------------------------------------
+# OUTPUT:
+# 2X0X:640:X1X0:9cXX:3XXf:XbXc:XdXd:XXXX
+# Daly City United States 
+# ['37.6844', '-122.438']
