@@ -169,12 +169,12 @@ selected_data = column_cutoff(data_frame, tuple_list)
 
 
 ### Build a function  called "least_squares_weights"
-### take as input two matricies corresponding to the X inputs and y target
-### assume the matricies are of the correct dimensions
+### take as input two matrices corresponding to the X inputs and y target
+### assume the matrices are of the correct dimensions
 
 ### Step 1: ensure that the number of rows of each matrix is greater than or equal to the number
 ### of columns.
-### ### If not, transpose the matricies.
+### ### If not, transpose the matrices.
 ### In particular, the y input should end up as a n-by-1 matrix, and the x input as a n-by-p matrix
 
 ### Step 2: *prepend* an n-by-1 column of ones to the input_x matrix
@@ -182,7 +182,7 @@ selected_data = column_cutoff(data_frame, tuple_list)
 ### Step 3: Use the above equation to calculate the least squares weights.
 
 ### NB: `.shape`, `np.matmul`, `np.linalg.inv`, `np.ones` and `np.transpose` will be valuable.
-### If those above functions are used, the weights should be accessable as below:  
+### If those above functions are used, the weights should be accessible as below:  
 ### weights = least_squares_weights(train_x, train_y)
 ### weight1 = weights[0][0]; weight2 = weights[1][0];... weight<n+1> = weights[n][0]
 
@@ -229,6 +229,7 @@ training_x = np.array([[1710, 1262, 1786,
                         1915, 2000, 1993, 
                         2004, 1973, 1931, 
                         1939]])
+
 weights = least_squares_weights(training_x, training_y)
 
 print (weights)
