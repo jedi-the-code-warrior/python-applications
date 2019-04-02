@@ -7,6 +7,7 @@ Created on Thu Sep 27 01:43:40 2018
 
 import random
 
+# load a text file containing english words
 WORDLIST_FILENAME = "words.txt"
 
 def loadWords():
@@ -34,13 +35,10 @@ def chooseWord(wordlist):
     """
     return random.choice(wordlist)
 
-# end of helper code
-# -----------------------------------
 
 # Load the list of words into the variable wordlist
 # so that it can be accessed from anywhere in the program
 wordlist = loadWords()
-
 
 
 def isWordGuessed(secretWord, lettersGuessed):
@@ -50,7 +48,7 @@ def isWordGuessed(secretWord, lettersGuessed):
     returns: boolean, True if all the letters of secretWord are in lettersGuessed;
       False otherwise
     '''
-    # FILL IN YOUR CODE HERE...
+    
     letterCount = 0
     for letter in secretWord:
         if (letter in lettersGuessed):
@@ -69,7 +67,7 @@ def getGuessedWord(secretWord, lettersGuessed):
     returns: string, comprised of letters and underscores that represents
       what letters in secretWord have been guessed so far.
     '''
-    # FILL IN YOUR CODE HERE...
+    
     guessedString = []
     rightGuesses = []
     
@@ -91,7 +89,7 @@ def getAvailableLetters(lettersGuessed):
     returns: string, comprised of letters that represents what letters have not
       yet been guessed.
     '''
-    # FILL IN YOUR CODE HERE...
+    
     import string
     availableLettersList = list(string.ascii_lowercase)
     
@@ -121,7 +119,7 @@ def hangman(secretWord):
 
     Follows the other limitations detailed in the problem write-up.
     '''
-    # FILL IN YOUR CODE HERE...
+    
     global lettersGuessed
     global rightGuesses
     global guessedLetter
@@ -169,5 +167,6 @@ def hangman(secretWord):
     # end of while loop 
 
 # end of function
+
 secretWord = chooseWord(wordlist).lower()
 hangman(secretWord)
