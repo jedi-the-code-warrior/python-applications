@@ -33,5 +33,5 @@ print([geo_data.get('latitude'),geo_data.get('longitude')])
 # ----------------------------------------------------------------------------------------------------------------------------------------
 # OUTPUT:
 # 2X0X:640:X1X0:9cXX:3XXf:XbXc:XdXd:XXXX
-# Daly City United States 
-# ['37.6844', '-122.438']
+# XXXXXXX City United States 
+# ['38.6544', '-123.738']
