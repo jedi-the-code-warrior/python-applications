@@ -65,6 +65,7 @@ def get_story_string():
     """
     Returns: a joke in encrypted text.
     """
+    # could've used context manager (with open (...)) instead but for simplicity I opted to this:
     f = open("datasets/story.txt", "r")
     story = str(f.read())
     f.close()
@@ -126,8 +127,8 @@ class Message(object):
         self.lower_shift_dict = {self.lower_alphabets[x]:self.lower_alphabets[x+shift-26] for x in range(26)}
         self.upper_shift_dict = {self.upper_alphabets[x]:self.upper_alphabets[x+shift-26] for x in range(26)}
         
-        # merge the two dicts
-        self.shift_dict = {**self.lower_shift_dict, **self.upper_shift_dict}
+        # merge the two dicts / (code intentionally redacted)
+        self.shift_dict = {XXXXX, YYYYY}
         
         return self.shift_dict
 
@@ -147,15 +148,16 @@ class Message(object):
         self.message_text = self.get_message_text()
         self.shifted_dict = self.build_shift_dict(shift)
         
-        for i, letter in enumerate(self.message_text) :
+        # (program logic intentionally redacted)
+        for XXXXXXXXXXXXXXXXXXX :
             
             if letter in string.ascii_lowercase and string.ascii_uppercase:
-                for key,val in self.shifted_dict.items():
+                for YYYYYYYYYYYYYYYYYYYYYYY :
                     if letter == key:
-                        self.shifted_message += val
+                        self.shifted_message += ZZZZZZ
                     
             else:
-                self.shifted_message += letter
+                self.shifted_message += WWWWWWWW
             
         return self.shifted_message
 
@@ -256,19 +258,19 @@ class CiphertextMessage(Message):
         and the decrypted message text using that shift value
         '''
         shift_count_dict = {}
-        
+        # program logic intentionally redacted
         for s in range(26):
             word_count = 0 
             decrypted_message = []
             
-            decrypted_message = [Message.apply_shift(self,s)]
+            decrypted_message = [YYYYYYYYYYYYYYYYYY]
             
             for word in decrypted_message:
                     
-                if is_word(self.valid_words, word):
+                if XXXXXXXXXXXXXXXX:
                     word_count += 1
                     
-                shift_count_dict[word] = word_count
+                shift_count_dict[word] = WWWWWWWW
             
         print (shift_count_dict)
         
