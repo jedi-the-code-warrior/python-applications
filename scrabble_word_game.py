@@ -44,7 +44,7 @@ def getFrequencyDict(sequence):
     # freqs: dictionary (element_type -> int)
     freq = {}
     for x in sequence:
-        freq[x] = freq.get(x,0) + 1
+        freq[x] = XXXXXXXXXXXXXXXXXXXXXX  # code intentionally redacted
     return freq
 	
 
@@ -79,9 +79,9 @@ def getWordScore(word, n):
     word_score_list = []
     
     for letter in word:
-        for key,val in SCRABBLE_LETTER_VALUES.items():
+        for  WWWWWWWWWWWWWWWWWWWWWWW:   # code intentionally redacted
             if letter == key:
-                letter_point = val 
+                letter_point = TTTT 
                 word_score_list.append(letter_point)
                 
     word_score = sum(word_score_list) * len(word)
@@ -132,11 +132,11 @@ def dealHand(n):
     numVowels = n // 3
     
     for i in range(numVowels):
-        x = VOWELS[random.randrange(0,len(VOWELS))]
+        x = VOWELS[HHHHHHHHHHHHHH] # code intentionally redacted
         hand[x] = hand.get(x, 0) + 1
         
     for i in range(numVowels, n):    
-        x = CONSONANTS[random.randrange(0,len(CONSONANTS))]
+        x = CONSONANTS[GGGGGGGGGGGGGG] # code intentionally redacted
         hand[x] = hand.get(x, 0) + 1
         
     return hand
@@ -167,10 +167,10 @@ def updateHand(hand, word):
     # in order to avoid runtime error (dictionary changed size during iteration)
     # make a separate temp copy and drop the dict item with zero/negative values
     temp_hand = {}
-    
-    for letter in word:
+    # program logic intentionally redacted
+    for GGGGGGGGGGGGGGGG:  
         temp_hand = new_hand.copy()
-        for key,val in new_hand.items() :
+        for RRRRRRRRRRRRRRRRRRR :
             
             if letter == key:
 
@@ -220,9 +220,10 @@ def isValidWord(word, hand, wordList):
         # compare key values in word_dict against new_hand
         # and see if all all letters are contained in new_hand
         
-        for key, val in word_dict.items():
+	# program logic intentionally redacted
+        for UUUUUUUUUUUUUUUUU:
             if key in new_hand:
-                if val <= new_hand.get(key):
+                if MMMMMMMMMMMMM:
 
                     continue
                     # let all letters, freqs to pass through to see if they are all contained in new_hand
