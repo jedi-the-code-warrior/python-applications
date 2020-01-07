@@ -167,7 +167,8 @@ def hangman(secretWord):
 
 # end of function
 
-# randomly choose a word from English vocabulary
-secretWord = chooseWord(wordlist).lower()
-# start the game
-hangman(secretWord)
+if __name__ == '__main__':
+    # randomly choose a word from English vocabulary
+    secretWord = chooseWord(wordlist).lower()
+    # start the game
+    hangman(secretWord)
