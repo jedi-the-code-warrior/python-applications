@@ -117,7 +117,6 @@ def hangman(secretWord):
       partially guessed word so far, as well as letters that the 
       user has not yet guessed.
 
-    Follows the other limitations detailed in the problem write-up.
     '''
     
     global lettersGuessed
@@ -132,7 +131,7 @@ def hangman(secretWord):
     print ("I am thinking of a word that is: " + str(len(secretWord)) + " letters long.")
 
     while True:
-        print ("__________________________________________________________")
+        print ("-" * 60)
     
         if (isWordGuessed(secretWord, rightGuesses)):
             print ("Congratulations, you won!")
@@ -168,5 +167,7 @@ def hangman(secretWord):
 
 # end of function
 
+# randomly choose a word from English vocabulary
 secretWord = chooseWord(wordlist).lower()
+# start the game
 hangman(secretWord)
