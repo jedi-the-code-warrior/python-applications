@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-Created on Thu Mar 14 07:40:57 2019
+Created on Thu Mar 14 07:40:57 2018
 
 @author: Anjani K Shiwakoti
 
@@ -30,7 +30,8 @@ then we look it up and simply re-use it. If not, then we calculate it and add it
 def fastFibonacci(n, memo_dict={}):
     """ 
     Using dynamic programming technique (memoization), 
-    calculates n-th Fibonacci number
+    dividing bigger problem into sub-problems, and using recursion,
+    calculates n-th Fibonacci number 
     
     """
     # base case
@@ -39,20 +40,21 @@ def fastFibonacci(n, memo_dict={}):
     
     # try to return the value of n in the table (memo dictionary)
     # if the value is there, we return it, and if not there then
-    # we return a key error and then calculate the new value
+    # we return a key error and then calculate the new value recursively
     try:
         return memo_dict[n]
     
     except KeyError:
         
-        # since table does not contain that value, calculate the new value
-        fibonacci_list = fastFibonacci(n-1, memo_dict) \
-                       + fastFibonacci(n-2, memo_dict)
+        # we arrived here because memo table does not contain that value, 
+        # so calculate the new fibonacci value
+        fibonacci = fastFibonacci(n-1, memo_dict) \
+                  + fastFibonacci(n-2, memo_dict)
         
         # add the new value to the table
-        memo_dict[n] = fibonacci_list
+        memo_dict[n] = fibonacci 
         
-        return fibonacci_list
+        return fibonacci 
         
 # Now let's print out the result for N number of Fibonaccis in sequence    
 N = 120
@@ -62,7 +64,7 @@ for n in range(N+1):
     
 # ----------------------------------OTHER METHODS------------------------------------------------
 
-### METHOD 3 (my own method)
+### METHOD 2 (my own method)
 # the following uses different logic but better still   
 
 def CalculateFibonacci(N):
@@ -72,12 +74,10 @@ def CalculateFibonacci(N):
     Repeat this process until the desired number of Fibonaccis is reached.
     """
     
-    print("------------------------------------------------------------------------")
+    print("-" * 50)
     print("List of the First {} Fibonacci Numbers".format(N))
-    print("------------------------------------------------------------------------")
+    print("-" * 50)
  
-    
-    
     next_num = 0
     fibonacci = [0,1]
     
@@ -90,18 +90,19 @@ def CalculateFibonacci(N):
 CalculateFibonacci(100)   
 
 
-#### METHOD 2
+#### METHOD 3
 # here's a classic algorithm with time complexity O(n), that is linear
+# but not memory efficient as it uses list
 
 def CalculateFibonacci(N):
     """ 
     Get first N number of Fibonacci numbers and display them sequentially in a list 
     """
     
-    print("------------------------------------------------------------------------")
+    print("-" * 50)
     print("List of the First {} Fibonacci Numbers".format(N))
-    print("------------------------------------------------------------------------")
- 
+    print("-" * 50)
+    
     fibonacci = 0
     prev_num = 0
     next_num = 1
@@ -110,25 +111,26 @@ def CalculateFibonacci(N):
     for n in range(N-1):
         
         fibonacci = prev_num + next_num
+        # swap the values the classic CS way
         prev_num = next_num 
         next_num = fibonacci
+        # store the value in a list
         fibonacci_list.append(fibonacci)
         
     return (fibonacci_list[:N])
-
-        
+      
 print (CalculateFibonacci(100)) 
    
 
-### METHOD 3
+### METHOD 4
 # this recursive method is pretty elegant but not recommended because of time complexity O(n^2)
-# the best method is to implement 'memoization' technique from dynamic programming 
+# the best method is to implement 'memoization' technique from dynamic programming instead
 
 def CalculateFibonacci(N):
     """ 
     Get first N number of Fibonacci numbers and display them sequentially in a list 
     """
-    
+    # base cases
     if N == 0:
         return 0
     elif N == 1:
