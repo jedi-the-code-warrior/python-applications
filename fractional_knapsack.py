@@ -5,30 +5,30 @@ Created on Tue Sep 10 11:47:34 2018
 @author: Anjani K Shiwakoti
 """
 
-def fractional_knapsack(W, w, v):
+def fractional_knapsack(C, w, v):
     """
-    Inputs: floats of W: capacity, w: weights, v: values
+    Inputs: floats of C: capacity, w: weights, v: values
     Outputs: a tuple of fractions, fitting_values
     """
     
     num_items = len(w)
-    index = list(range(num_items))
+    indices = list(range(num_items))
     fractions = [0]*num_items
     fitting_values = [0]*num_items
     
     ratios = [v/w for v,w in zip(v,w)]
     
-    index.sort(key=lambda i: ratios[i], reverse=True)
+    # sort indices in place
+    indices.sort(key=lambda i: ratios[i], reverse=True)
     
-    
-    for idx in index:
-        if w[idx] <= W:
-            fractions[idx] = 1
-            fitting_values[idx] = v[idx]
-            W = W - w[idx]
+    for index_ in indices:
+        if w[index_] <= C:
+            fractions[index_] = 1
+            fitting_values[index_] = v[index_]
+            C = C - w[index_]
         else:
-            fractions[idx] = W/w[idx]
-            fitting_values[idx] = fractions[idx] * v[idx]
+            fractions[index_] = C/w[index_]
+            fitting_values[index_] = fractions[index_] * v[index_]
     
     return (fractions, fitting_values)
 
