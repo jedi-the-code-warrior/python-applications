@@ -12,18 +12,21 @@ import numpy as np
  
 
 def ArmstrongsNumber(num):
+    """
+    This is my own method for generating or detecting Armstrong's Number.
+    """
     
-        digit_list = list(str(num))
-        order = len(digit_list)
-        expanded_sum_of_digits = 0
-        
-        for digit in digit_list:
-            expanded_sum_of_digits += int(digit)**order 
-        #print ("Sum of Each Digit^Order", expanded_sum_of_digits)
-        
-        if num == expanded_sum_of_digits:
-            #print ("Found Armstrong's Number: ", number)
-            return num
+    digit_list = list(str(num))
+    order = len(digit_list)
+    expanded_sum_of_digits = 0
+
+    for digit in digit_list:
+        expanded_sum_of_digits += int(digit)**order 
+    #print ("Sum of Each Digit^Order", expanded_sum_of_digits)
+
+    if num == expanded_sum_of_digits:
+        #print ("Found Armstrong's Number: ", number)
+        return num
     
 upper_limit = 1000000 # for easy testing
 #int(input("Enter any positive integer up to which you want to detect Armstrong's Number: "))
