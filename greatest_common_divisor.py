@@ -67,3 +67,54 @@ def gcdRecur(a, b):
         return a
     else:
         return gcdRecur(b, a % b)
+
+#---------------------------------------------------------------------------------------------------------------------------------------
+METHOD 3: USING RECURSION TO FIND GENERALIZED GCD FOR A LIST OF N POSITIVE INTEGERS
+    
+def generalizedGCD(num, arr):
+    """
+    Computes the greatest common divisor(GCD) or highest common factor(HCF)
+    Input: 
+           num - an int representing the number of positive integers (N)
+           arr - a list of positive integers
+           
+    Output:
+            returns an integer representing the GCD or HCF of the given positive integers
+    
+    """
+    # edge cases
+    
+    # if list is empty
+    if num == 0:
+        return None 
+    
+    # if list contains single element     
+    if num == 1:
+        return arr[0]
+    
+    # if list contains a zero, avoid division by zero by returning None
+    if any(arr) == 0:
+        return None
+    
+    # helper function to compute GCD for all else 
+    def GCDRecur(a, b):
+        """ recursion method to compute GCD """
+        
+        # base case
+        if b == 0:
+            return a 
+        else:
+            return GCDRecur(b, a%b)
+    
+    # take an adjacent pair at a time and compute their GCD, 
+    # keep track of their GCD on a list and move next until all pairs are visited
+    # then return the minimun of the list of GCD's as our final result
+    result_list = []
+    for i in range(num-1):
+        result = GCDRecur(arr[i],arr[i+1])
+        result_list.append(result)
+        
+    #print(result_list)
+    return min(result_list)
+        
+        
